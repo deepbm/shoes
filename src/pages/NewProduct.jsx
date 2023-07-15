@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import Button from '../components/ui/Button';
 import { uploadImage } from '../api/imgUploader';
+import { addNewProduct } from '../api/firebase';
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
   const [file, setFile] = useState();
+  const [isUploading, setIsUploading] = useState(false);
+  const [success, setSuccess] = useState();
   const handleChange = e => {
     const { name, value, files } = e.target;
     if (name === 'file') {
@@ -15,11 +18,25 @@ export default function NewProduct() {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    uploadImage(file).then(url => console.log(url));
+    setIsUploading(true);
+    uploadImage(file).then(url =>
+      addNewProduct(product, url) //
+        .then(() => {
+          setSuccess('성공적으로 제품을 추가하였습니다.');
+          setTimeout(() => {
+            setSuccess(null);
+          }, 3000);
+        })
+        .finally(() => setIsUploading(false))
+    );
   };
   return (
     <section>
-      {file && <img src={URL.createObjectURL(file)} alt={file.name} />}
+      <h2 className='my-4 text-2xl font-bold'>새로운 제품 등록</h2>
+      {success && <p className='my-2'>✅ {success}</p>}
+      {file && (
+        <img className='mx-auto mb-2 w-96' src={URL.createObjectURL(file)} alt={file.name} />
+      )}
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <input type='file' accept='image/*' name='file' required onChange={handleChange} />
         <input
@@ -62,7 +79,11 @@ export default function NewProduct() {
           required
           onChange={handleChange}
         />
-        <Button text='제품 등록하기' onClick={handleSubmit} />
+        <Button
+          text={isUploading ? '업로드 중...' : '제품 등록하기'}
+          onClick={handleSubmit}
+          disabled={isUploading}
+        />
       </form>
     </section>
   );
