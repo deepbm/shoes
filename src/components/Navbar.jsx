@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsFillPencilFill } from 'react-icons/bs';
+import { login, logout, onUserStateChange } from '../api/firebase';
 
 export default function Navbar() {
+  const [user, setUser] = useState();
+  const handleLogIn = async () => {
+    login().then(setUser);
+  };
+  const handleLogOut = () => {
+    logout().then(setUser);
+  };
+  useEffect(() => {
+    onUserStateChange(setUser);
+  }, []);
+
   return (
     <header className='flex justify-between items-center'>
       <Link to='/'>
@@ -14,7 +26,11 @@ export default function Navbar() {
           <BsFillPencilFill />
         </Link>
         <Link to='/carts'>Carts</Link>
-        <button>LogIn</button>
+        {user ? (
+          <button onClick={handleLogOut}>LogOut</button>
+        ) : (
+          <button onClick={handleLogIn}>LogIn</button>
+        )}
       </nav>
     </header>
   );
