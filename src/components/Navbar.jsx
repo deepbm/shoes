@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { BsFillPencilFill } from 'react-icons/bs';
-import { login, logout, onUserStateChange } from '../api/firebase';
 import User from './User';
 import Button from './ui/Button';
+import { useUser } from '../contexts/UserContext';
 
 export default function Navbar() {
-  const [user, setUser] = useState();
+  const { user, setUser, login, logout } = useUser();
   const handleLogIn = async () => {
     login().then(setUser);
   };
   const handleLogOut = () => {
     logout().then(setUser);
   };
-  useEffect(() => {
-    onUserStateChange(setUser);
-  }, []);
 
   return (
     <header className='flex justify-between items-center'>
