@@ -13,3 +13,7 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+input {
+  @apply outline-none border p-2;
+}
