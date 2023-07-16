@@ -73,3 +73,7 @@ export async function getProducts() {
       return [];
     });
 }
+
+export function addOrUpdateToCart(userId, product) {
+  set(ref(db, `carts/${userId}/${product.id}`), product);
+}
