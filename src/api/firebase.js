@@ -62,3 +62,14 @@ export async function addNewProduct(product, image) {
     size: product.size.split(','),
   });
 }
+
+export async function getProducts() {
+  return get(ref(db, 'products')) //
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        const products = snapshot.val();
+        return Object.values(products);
+      }
+      return [];
+    });
+}
