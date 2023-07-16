@@ -4,6 +4,7 @@ import { BsFillPencilFill } from 'react-icons/bs';
 import User from './User';
 import Button from './ui/Button';
 import { useUser } from '../contexts/UserContext';
+import CartStatus from './CartStatus';
 
 export default function Navbar() {
   const { user, setUser, login, logout } = useUser();
@@ -24,7 +25,11 @@ export default function Navbar() {
         <Link to='/products/new'>
           <BsFillPencilFill />
         </Link>
-        <Link to='/carts'>Carts</Link>
+        {user && (
+          <Link to='/carts'>
+            <CartStatus />
+          </Link>
+        )}
         {user && <User user={user} />}
         {user ? (
           <Button text='LogOut' onClick={handleLogOut} />
