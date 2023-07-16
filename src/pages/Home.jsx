@@ -1,5 +1,12 @@
 import React from 'react';
+import Banner from '../components/Banner';
+import Products from './Products';
 
 export default function Home() {
-  return <div>Home</div>;
+  return (
+    <>
+      <Banner src='/img/banner.jpg' alt='banner' />
+      <Products />
+    </>
+  );
 }
