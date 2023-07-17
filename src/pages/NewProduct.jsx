@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
 import Button from '../components/ui/Button';
 import { uploadImage } from '../api/imgUploader';
-import { addNewProduct } from '../api/firebase';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import useProducts from '../hooks/useProducts';
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
   const [file, setFile] = useState();
   const [success, setSuccess] = useState();
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: ({ product, url }) => addNewProduct(product, url),
-    onSuccess: () => queryClient.invalidateQueries(['products']),
-  });
+  const { addProduct } = useProducts();
   const handleChange = e => {
     const { name, value, files } = e.target;
     if (name === 'file') {
@@ -25,7 +20,7 @@ export default function NewProduct() {
     e.preventDefault();
     uploadImage(file) //
       .then(url => {
-        mutation.mutate(
+        addProduct.mutate(
           { product, url },
           {
             onSuccess: () => {
@@ -88,9 +83,9 @@ export default function NewProduct() {
           onChange={handleChange}
         />
         <Button
-          text={mutation.isLoading ? '업로드 중...' : '제품 등록하기'}
+          text={addProduct.isLoading ? '업로드 중...' : '제품 등록하기'}
           onClick={handleSubmit}
-          disabled={mutation.isLoading}
+          disabled={addProduct.isLoading}
         />
       </form>
     </section>
