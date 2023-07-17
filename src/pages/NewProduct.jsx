@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import Button from '../components/ui/Button';
 import { uploadImage } from '../api/imgUploader';
 import { addNewProduct } from '../api/firebase';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
   const [file, setFile] = useState();
-  const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState();
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: ({ product, url }) => addNewProduct(product, url),
+    onSuccess: () => queryClient.invalidateQueries(['products']),
+  });
   const handleChange = e => {
     const { name, value, files } = e.target;
     if (name === 'file') {
@@ -18,17 +23,19 @@ export default function NewProduct() {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    setIsUploading(true);
     uploadImage(file) //
       .then(url => {
-        addNewProduct(product, url) //
-          .then(() => {
-            setSuccess('성공적으로 제품을 추가하였습니다.');
-            setTimeout(() => {
-              setSuccess(null);
-            }, 3000);
-          })
-          .finally(() => setIsUploading(false));
+        mutation.mutate(
+          { product, url },
+          {
+            onSuccess: () => {
+              setSuccess('성공적으로 제품을 추가하였습니다.');
+              setTimeout(() => {
+                setSuccess(null);
+              }, 3000);
+            },
+          }
+        );
       });
   };
   return (
@@ -81,9 +88,9 @@ export default function NewProduct() {
           onChange={handleChange}
         />
         <Button
-          text={isUploading ? '업로드 중...' : '제품 등록하기'}
+          text={mutation.isLoading ? '업로드 중...' : '제품 등록하기'}
           onClick={handleSubmit}
-          disabled={isUploading}
+          disabled={mutation.isLoading}
         />
       </form>
     </section>
