@@ -19,16 +19,17 @@ export default function NewProduct() {
   const handleSubmit = e => {
     e.preventDefault();
     setIsUploading(true);
-    uploadImage(file).then(url =>
-      addNewProduct(product, url) //
-        .then(() => {
-          setSuccess('성공적으로 제품을 추가하였습니다.');
-          setTimeout(() => {
-            setSuccess(null);
-          }, 3000);
-        })
-        .finally(() => setIsUploading(false))
-    );
+    uploadImage(file) //
+      .then(url => {
+        addNewProduct(product, url) //
+          .then(() => {
+            setSuccess('성공적으로 제품을 추가하였습니다.');
+            setTimeout(() => {
+              setSuccess(null);
+            }, 3000);
+          })
+          .finally(() => setIsUploading(false));
+      });
   };
   return (
     <section>
