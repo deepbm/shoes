@@ -1,27 +1,16 @@
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { FaEquals } from 'react-icons/fa';
-import { useUser } from '../contexts/UserContext';
-import { getCart } from '../api/firebase';
 import CartItem from '../components/CartItem';
 import PriceCard from '../components/PriceCard';
+import useCarts from '../hooks/useCarts';
 
 const DELIVERY_FEE = 3000;
 
 export default function MyCart() {
-  const { user } = useUser();
   const {
-    isLoading,
-    error,
-    data: carts,
-  } = useQuery({
-    queryKey: ['carts', user],
-    queryFn: () => {
-      return getCart(user.uid);
-    },
-    staleTime: 1000 * 60 * 5,
-  });
+    cartsQuery: { isLoading, error, data: carts },
+  } = useCarts();
 
   const hasCarts = carts && carts.length > 0;
   const totalPrice = hasCarts && carts.reduce((a, b) => a + parseInt(b.price) * b.quantity, 0);
@@ -38,7 +27,7 @@ export default function MyCart() {
         <>
           <ul>
             {carts.map(cart => (
-              <CartItem key={cart.id} product={cart} uid={user.uid} />
+              <CartItem key={cart.id} product={cart} />
             ))}
           </ul>
           <div className='flex justify-between items-center mb-4'>

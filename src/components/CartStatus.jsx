@@ -1,16 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
-import { getCart } from '../api/firebase';
-import { useUser } from '../contexts/UserContext';
+import useCarts from '../hooks/useCarts';
 
 export default function CartStatus() {
-  const { user } = useUser();
-  const { data: carts } = useQuery({
-    queryKey: ['carts', user],
-    queryFn: () => getCart(user.uid),
-    staleTime: 1000 * 60 * 5,
-  });
+  const {
+    cartsQuery: { data: carts },
+  } = useCarts();
 
   return (
     <div className='relative'>
