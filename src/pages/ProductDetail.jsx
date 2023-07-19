@@ -42,7 +42,7 @@ export default function ProductDetail() {
             onClick={handleAddCart}
             disabled={addOrUpdateItem.isLoading}
           />
-          {success && <p className='my-2'>{success}</p>}
+          {success && <p className='my-2'>✅ {success}</p>}
         </div>
       </section>
     </>

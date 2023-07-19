@@ -22,9 +22,11 @@ export default function Navbar() {
       </Link>
       <nav className='flex items-center gap-4'>
         <Link to='/products'>Products</Link>
-        <Link to='/products/new'>
-          <BsFillPencilFill />
-        </Link>
+        {user && user.isAdmin && (
+          <Link to='/products/new'>
+            <BsFillPencilFill />
+          </Link>
+        )}
         {user && (
           <Link to='/carts'>
             <CartStatus />
