@@ -28,3 +28,12 @@ https://deepbm.github.io/shoes/ 주소로 확인할 수 있습니다.
 - react router를 이용하여 페이지 이동
 
 ## Application screen shots:
+
+1. 메인페이지
+![메인화면](https://github.com/deepbm/shoes/assets/82020586/bd47ab87-706d-444b-9be1-c512766a9bba)
+
+2. 제품 등록
+![제품 등록](https://github.com/deepbm/shoes/assets/82020586/c959d07a-b4f6-4f9c-939d-48cdf8cb37a2)
+
+3. 장바구니
+![장바구니](https://github.com/deepbm/shoes/assets/82020586/8a357b53-f3d9-4c7e-b0e1-ccb35275726e)
