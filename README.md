@@ -20,7 +20,7 @@ https://deepbm.github.io/shoes/ 주소로 확인할 수 있습니다.
 
 ## Features:
 
-- sns 로그인 연동
+- 구글 로그인 연동
 - firebase 실시간 데이터베이스를 이용한 db 관리
 - cloudinary 서비스를 이용한 이미지 업로드
 - 디커플링 위한 커스텀 훅 생성하여 관리
@@ -30,10 +30,13 @@ https://deepbm.github.io/shoes/ 주소로 확인할 수 있습니다.
 ## Application screen shots:
 
 1. 메인페이지
-![메인화면](https://github.com/deepbm/shoes/assets/82020586/bd47ab87-706d-444b-9be1-c512766a9bba)
+![메인화면](https://github.com/deepbm/shoes/assets/82020586/39a743c0-8da8-4e3b-a5ba-22ad9758b777)
 
-2. 제품 등록
-![제품 등록](https://github.com/deepbm/shoes/assets/82020586/c959d07a-b4f6-4f9c-939d-48cdf8cb37a2)
+2. 제품 상세페이지
+![상세페이지](https://github.com/deepbm/shoes/assets/82020586/b99536ac-de72-4b1e-8dc1-2608829c042f)
 
-3. 장바구니
-![장바구니](https://github.com/deepbm/shoes/assets/82020586/8a357b53-f3d9-4c7e-b0e1-ccb35275726e)
+3. 제품 등록
+![제품 등록](https://github.com/deepbm/shoes/assets/82020586/b7d33a37-a107-4135-a7d9-76ca907c4657)
+
+4. 장바구니
+![장바구니](https://github.com/deepbm/shoes/assets/82020586/6f74f564-1ee7-48eb-adb1-7cefd87fb5b6)
