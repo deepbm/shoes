@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Button from '../components/ui/Button';
 import { uploadImage } from '../api/imgUploader';
 import useProducts from '../hooks/useProducts';
 
 export default function NewProduct() {
+  const fileRef = useRef();
   const [product, setProduct] = useState({});
   const [file, setFile] = useState();
-  const [success, setSuccess] = useState();
   const { addProduct } = useProducts();
   const handleChange = e => {
     const { name, value, files } = e.target;
@@ -24,24 +24,32 @@ export default function NewProduct() {
           { product, url },
           {
             onSuccess: () => {
-              setSuccess('성공적으로 제품을 추가하였습니다.');
-              setTimeout(() => {
-                setSuccess(null);
-              }, 3000);
+              alert('성공적으로 제품을 추가하였습니다.');
+              setProduct({});
+              setFile();
+              if (fileRef.current) {
+                fileRef.current.value = '';
+              }
             },
           }
         );
       });
   };
   return (
-    <section>
-      <h2 className='my-4 text-2xl font-bold'>새로운 제품 등록</h2>
-      {success && <p className='my-2'>✅ {success}</p>}
+    <section className='mx-auto px-8 w-10/12'>
+      <h2 className='my-4 mb-16 text-2xl font-bold'>새로운 제품 등록</h2>
       {file && (
-        <img className='mx-auto mb-2 w-96' src={URL.createObjectURL(file)} alt={file.name} />
+        <img className='mx-auto mb-10 w-96' src={URL.createObjectURL(file)} alt={file.name} />
       )}
-      <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-        <input type='file' accept='image/*' name='file' required onChange={handleChange} />
+      <form className='flex flex-col gap-4 mb-10 px-10' onSubmit={handleSubmit}>
+        <input
+          type='file'
+          ref={fileRef}
+          accept='image/*'
+          name='file'
+          required
+          onChange={handleChange}
+        />
         <input
           type='text'
           name='title'
@@ -75,6 +83,7 @@ export default function NewProduct() {
           onChange={handleChange}
         />
         <input
+          className='mb-8'
           type='text'
           name='size'
           value={product.size ?? ''}

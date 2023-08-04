@@ -16,7 +16,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className='flex justify-between items-center'>
+    <header className='flex justify-between items-center p-8 border-b'>
       <Link to='/'>
         <img className='w-32' src='/img/logo.svg' alt='logo' />
       </Link>

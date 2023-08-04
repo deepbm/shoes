@@ -8,7 +8,6 @@ body {
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @apply flex flex-col items-center;
 }
 
 code {
@@ -16,9 +15,13 @@ code {
 }
 
 #root {
-  @apply w-full max-w-screen-2xl;
+  @apply flex flex-col justify-between w-full h-screen;
 }
 
 input {
-  @apply outline-none border p-2;
+  @apply outline-none border p-2.5 pl-4;
+}
+
+button {
+  @apply outline-none;
 }
