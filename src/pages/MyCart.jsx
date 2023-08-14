@@ -1,7 +1,6 @@
 import React from 'react';
 import CartItem from '../components/CartItem';
 import useCarts from '../hooks/useCarts';
-import Button from '../components/ui/Button';
 import { Link } from 'react-router-dom';
 
 const DELIVERY_FEE = 3000;
