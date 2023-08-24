@@ -25,14 +25,16 @@ export default function NewProduct() {
           {
             onSuccess: () => {
               alert('성공적으로 제품을 추가하였습니다.');
-              setProduct({});
-              setFile();
-              if (fileRef.current) {
-                fileRef.current.value = '';
-              }
             },
           }
         );
+      })
+      .finally(() => {
+        setProduct({});
+        setFile();
+        if (fileRef.current) {
+          fileRef.current.value = '';
+        }
       });
   };
   return (
